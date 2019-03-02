@@ -84,6 +84,9 @@ $app->get('/yft/notify', 'App\Services\Gateway\YftPay:notify');            // @t
 $app->get('/codepay_callback', 'App\Services\Payment:notify');
 $app->post('/codepay_callback', 'App\Services\Payment:notify');
 
+$app->get('/test', 'App\Controllers\LinkController:getDetectFromGfwlist');
+
+
 // User Center
 $app->group('/user', function () {
     $this->get('', 'App\Controllers\UserController:index');

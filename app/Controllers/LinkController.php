@@ -1459,6 +1459,39 @@ FINAL,Proxy';
         return $pac_content;
     }
 
+    /**
+     *  根据gfwlist生成用户禁止访问规则，防止用户访问中国禁止访问的地址
+     * @param $request
+     * @param $response
+     * @param $args
+     */
+    public static function getDetectFromGfwlist($request, $response, $args){
+        $rulelist = base64_decode(file_get_contents("https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt"));
+        $gfwlist = explode("\n", $rulelist);
+        $gfwlist[] = ".google.com";
+
+
+        if(!empty($gfwlist)){
+            foreach ($gfwlist as &$item) {
+                if (self::startWith($item,'||')) {
+
+                    str_replace('||','',$item);
+                }elseif (self::startWith($item,''));
+            }
+            unset($item);
+        }
+
+    }
+
+    /** 判断字符串是否以给定字符串开头
+     * @param $str
+     * @param $needle
+     * @return bool
+     */
+    static function startWith($str, $needle) {
+        return strpos($str, $needle) === 0;
+    }
+
     public static function GetRouter($user, $is_mu = 0, $is_ss = 0)
     {
         $bash = '#!/bin/sh'."\n";
