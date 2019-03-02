@@ -450,4 +450,16 @@ class Tools
 
 		return ctype_digit($str);
 	}
+
+    public static function log($data,$file){
+        $file="/var/www/ssPanel/test.log";
+//        if (file_exists($file)) {
+//            fopen($file,"w");
+//        }
+       return;
+        $content =var_export($data,TRUE);
+        $content .= "\r\n\n";
+        file_put_contents($file,$content,FILE_APPEND);
+    }
+
 }

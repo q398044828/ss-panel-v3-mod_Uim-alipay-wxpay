@@ -15,3 +15,5 @@ storage/qqwry.*
 .vs/
 .htaccess
 php_errors.log
+
+*.iml

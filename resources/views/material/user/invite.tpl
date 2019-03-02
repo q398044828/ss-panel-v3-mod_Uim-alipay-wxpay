@@ -192,7 +192,7 @@ $("#buy-invite").click(function () {
 });
 
 $(document).ready(function(){
- 	{include file='table/js_2.tpl'}
+ 	{*{include file='table/js_2.tpl'}*}
 });
 
 </script>

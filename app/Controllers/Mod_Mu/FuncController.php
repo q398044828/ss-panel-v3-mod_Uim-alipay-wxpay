@@ -11,6 +11,7 @@ use App\Models\Node;
 use App\Models\Auto;
 use App\Controllers\BaseController;
 use App\Utils\Tools;
+use App\Utils\Helper;
 
 class FuncController extends BaseController
 {
@@ -25,8 +26,13 @@ class FuncController extends BaseController
 
     public function get_detect_logs($request, $response, $args)
     {
-        $rules = DetectRule::all();
+        $key = Helper::getMuKeyFromReq($request);
 
+        if (strpos($key, 'noDetect') === 0) {
+            $rules=array();
+        }else{
+            $rules = DetectRule::all();
+        }
         $res = [
             "ret" => 1,
             "data" => $rules

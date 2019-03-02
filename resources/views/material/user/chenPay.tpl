@@ -36,16 +36,16 @@
                 <input type="number" id="AliPayType" class="form-control" name="amount"/>
             </div>
             {/if}
-        </div>
 
-        {if $config['AliPay_Status']==1}
-            <a class="btn btn-flat waves-attach" id="urlChangeAliPay" type="1"><img src="/images/alipay.jpg"
-                                                                                    width="45"></a>
-        {/if}
-        {if $config['WxPay_Status']==1}
-            <a class="btn btn-flat waves-attach" id="urlChangeAliPay2" type="2"><img src="/images/weixin.jpg"
-                                                                                     width="45"></a>
-        {/if}
+            {if $config['AliPay_Status']==1}
+                <a class="btn btn-flat waves-attach" id="urlChangeAliPay" type="1"><img src="/images/alipay.jpg"
+                                                                                        width="45"></a>
+            {/if}
+            {if $config['WxPay_Status']==1}
+                <a class="btn btn-flat waves-attach" id="urlChangeAliPay2" type="2"><img src="/images/weixin.jpg"
+                                                                                         width="45"></a>
+            {/if}
+        </div>
     </div>
     <div class="form-group pull-right">
         <img src="/images/qianbai-2.png" height="205"/>

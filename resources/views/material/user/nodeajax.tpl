@@ -1,11 +1,16 @@
 {$load=$point_node->getNodeLoad()}
 
-<div id="load{$id}_chart" style="height: 300px; width: 100%;"></div>
-	<div id="up{$id}_chart" style="height: 300px; width: 100%;"></div>
-	<div id="alive{$id}_chart" style="height: 300px; width: 100%;"></div>
+
+
+	{if $is_admin=='1'}
+		<div id="load{$id}_chart" style="height: 300px; width: 100%;"></div>
+		<div id="up{$id}_chart" style="height: 300px; width: 100%;"></div>
+		<div id="alive{$id}_chart" style="height: 300px; width: 100%;"></div>
+		<div id="speedtest{$id}_ping_chart" style="height: 300px; width: 100%;"></div>
+	{/if}
 	<div id="speedtest{$id}_chart" style="height: 300px; width: 100%;"></div>
-	<div id="speedtest{$id}_ping_chart" style="height: 300px; width: 100%;"></div>
-				
+
+
 	<script type="text/javascript">
 		$().ready(function(){
 			chart{$id} = new CanvasJS.Chart("load{$id}_chart",
@@ -15,7 +20,7 @@
 				},
 				data: [
 				{
-					type: "line", 
+					type: "line",
 					dataPoints: [
 						{$i=0}
 						{foreach $load as $single_load}
@@ -38,14 +43,14 @@
 								{/literal}
 							{/if}
 						{/foreach}
-						
+
 					]
 				}
 				]
 			});
-			
-			
-			
+
+
+
 			up_chart{$id} = new CanvasJS.Chart("up{$id}_chart",
 			{
 				title:{
@@ -73,7 +78,7 @@
 					}
 					]
 			});
-			
+
 			{$load=$point_node->getNodeAlive()}
 			alive_chart{$id} = new CanvasJS.Chart("alive{$id}_chart",
 			{
@@ -82,7 +87,7 @@
 				},
 				data: [
 				{
-					type: "line", 
+					type: "line",
                   yValueFormatString: "##0\"人\"",
 					dataPoints: [
 						{$i=0}
@@ -106,26 +111,26 @@
 								{/literal}
 							{/if}
 						{/foreach}
-						
+
 					]
 				}
 				]
 			});
-			
-			
-			
+
+
+
 			{$speedtests=$point_node->getSpeedtestResult()}
 			speedtest_chart{$id} = new CanvasJS.Chart("speedtest{$id}_chart",
 			{
 				title:{
 					text: "最近节点测速延时情况报告 {$prefix}"
 				},
-				axisY: {				
+				axisY: {
 					suffix: " ms"
 				},
 				data: [
 				{
-					type: "line", 
+					type: "line",
 					showInLegend: true,
 					legendText: "电信延时",
                     yValueFormatString: "##0\"ms\"",
@@ -151,11 +156,11 @@
 								{/literal}
 							{/if}
 						{/foreach}
-						
+
 					]
 				},
 				{
-					type: "line", 
+					type: "line",
 					showInLegend: true,
 					legendText: "联通延时",
                   yValueFormatString: "##0\"ms\"",
@@ -181,11 +186,11 @@
 								{/literal}
 							{/if}
 						{/foreach}
-						
+
 					]
 				},
 				{
-					type: "line", 
+					type: "line",
 					showInLegend: true,
 					legendText:"移动延时",
                   yValueFormatString: "##0\"ms\"",
@@ -211,12 +216,12 @@
 								{/literal}
 							{/if}
 						{/foreach}
-						
+
 					]
 				}
 				]
 			});
-			
+
 			speedtest_ping_chart{$id} = new CanvasJS.Chart("speedtest{$id}_ping_chart",
 			{
 				title:{
@@ -231,7 +236,7 @@
 	                   },
 				data: [
 				{
-					type: "line", 
+					type: "line",
 					showInLegend: true,
 					legendText: "电信上传速度",
                   	name: "电信上传",
@@ -258,11 +263,11 @@
 								{/literal}
 							{/if}
 						{/foreach}
-						
+
 					]
 				},
 				{
-					type: "line", 
+					type: "line",
 					showInLegend: true,
 					legendText: "电信下载速度",
                   name: "电信下载",
@@ -289,11 +294,11 @@
 								{/literal}
 							{/if}
 						{/foreach}
-						
+
 					]
 				},
 				{
-					type: "line", 
+					type: "line",
 					showInLegend: true,
 					legendText: "联通上传速度",
                   name: "联通上传",
@@ -320,11 +325,11 @@
 								{/literal}
 							{/if}
 						{/foreach}
-						
+
 					]
 				},
 				{
-					type: "line", 
+					type: "line",
 					showInLegend: true,
 					legendText: "联通下载速度",
                   name: "联通下载",
@@ -351,11 +356,11 @@
 								{/literal}
 							{/if}
 						{/foreach}
-						
+
 					]
 				},
 				{
-					type: "line", 
+					type: "line",
 					showInLegend: true,
 					legendText:"移动下载速度",
                   name: "移动下载",
@@ -382,11 +387,11 @@
 								{/literal}
 							{/if}
 						{/foreach}
-						
+
 					]
 				},
 				{
-					type: "line", 
+					type: "line",
 					showInLegend: true,
 					legendText:"移动上传速度",
                   name: "移动上传",
@@ -413,30 +418,35 @@
 								{/literal}
 							{/if}
 						{/foreach}
-						
+
 					]
 				}
 				]
 			});
-			
-			
-			
-			
-			
-			
-			
-				
-			chart{$id}.render();
-			up_chart{$id}.render();
-			alive_chart{$id}.render();
-			speedtest_chart{$id}.render();
-			speedtest_ping_chart{$id}.render();
-			
-			
+
+
+
+
+
+
+
+
+
+
+
+
+            speedtest_chart{$id}.render();
+			{if $is_admin=='1'}
+            	chart{$id}.render();
+            	up_chart{$id}.render();
+            	alive_chart{$id}.render();
+            	speedtest_ping_chart{$id}.render();
+			{/if}
+
 		});
-		
-		
-		
-		
-			
+
+
+
+
+
 	</script>

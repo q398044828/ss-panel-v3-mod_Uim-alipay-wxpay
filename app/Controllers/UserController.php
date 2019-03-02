@@ -86,7 +86,7 @@ class UserController extends BaseController
             ->assign("router_token_without_mu", $router_token_without_mu)->assign("acl_token", $acl_token)
             ->assign('ann', $Ann)->assign('geetest_html', $GtSdk)->assign("ios_token", $ios_token)
             ->assign('enable_duoshuo', Config::get('enable_duoshuo'))->assign('duoshuo_shortname', Config::get('duoshuo_shortname'))
-            ->assign("user", $this->user)->registerClass("URL", "App\Utils\URL")->assign('baseUrl', Config::get('baseUrl'))->display('user/index.tpl');
+            ->assign("user", $this->user)->registerClass("URL", "App\Utils\URL")->assign('baseUrl', Config::get('baseUrl'))->display('user/index_game.tpl');
     }
 
 
@@ -475,7 +475,8 @@ class UserController extends BaseController
         $id = $args['id'];
         $point_node = Node::find($id);
         $prefix = explode(" - ", $point_node->name);
-        return $this->view()->assign('point_node', $point_node)->assign('prefix', $prefix[0])->assign('id', $id)->display('user/nodeajax.tpl');
+        $user = Auth::getUser();
+        return $this->view()->assign('point_node', $point_node)->assign('prefix', $prefix[0])->assign('id', $id)->assign('is_admin',$user['is_admin'])->display('user/nodeajax.tpl');
     }
 
 
