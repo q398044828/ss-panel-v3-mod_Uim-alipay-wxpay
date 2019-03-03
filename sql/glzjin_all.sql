@@ -696,3 +696,6 @@ ALTER TABLE `paylist`
 --
 ALTER TABLE `paylist`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;ALTER TABLE `user_traffic_log` CHANGE `u` `u` BIGINT(20) NOT NULL, CHANGE `d` `d` BIGINT(20) NOT NULL;
+
+
+alter table `user` MODIFY COLUMN `obfs_param` varchar(4096) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `obfs`;
