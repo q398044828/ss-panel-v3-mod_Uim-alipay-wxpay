@@ -24,14 +24,46 @@ class FuncController extends BaseController
         return $this->echoJson($response, $res);
     }
 
+    /**
+     *  根据gfwlist生成用户禁止访问规则，防止用户访问中国禁止访问的地址
+     * @param $request
+     * @param $response
+     * @param $args
+     * @return string
+     */
+    public function getDetectFromGfwlist($reqMd5,&$outMd5){
+        $path=__DIR__.'/../../../';
+        $regexs=file_get_contents($path.'/gfw.url_regex.lst');
+        $md5=md5($regexs);
+        if (empty($reqMd5) || $reqMd5 != $md5) {
+            $regexs = explode("\n", $regexs);
+            $index=20000;
+            $rules=array();
+            foreach ($regexs as $regex) {
+                $rule=new DetectRule();
+                $rule->id=$index;
+                $index++;
+                $rule->regex=$regex;
+                $rules[]=$rule;
+            }
+            $outMd5=$md5;
+            return $rules;
+        }else{
+            return null;
+        }
+    }
+
     public function get_detect_logs($request, $response, $args)
     {
         $key = Helper::getMuKeyFromReq($request);
-
+        $md5="";
         if (strpos($key, 'noDetect') === 0) {
             $rules=array();
         }else{
             $rules = DetectRule::all();
+            $req=$request->getQueryParams();
+            $gfwList=self::getDetectFromGfwlist(empty($req['gfwlistmd5'])?null:$req['gfwlistmd5'],$md5);
+            $rules=$rules->merge($gfwList);
         }
         $res = [
             "ret" => 1,

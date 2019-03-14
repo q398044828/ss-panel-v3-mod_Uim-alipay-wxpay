@@ -4,6 +4,7 @@
 
 namespace App\Controllers;
 
+use App\Models\DetectRule;
 use App\Models\Link;
 use App\Models\User;
 use App\Models\Node;
@@ -1464,23 +1465,29 @@ FINAL,Proxy';
      * @param $request
      * @param $response
      * @param $args
+     * @return string
      */
-    public static function getDetectFromGfwlist($request, $response, $args){
-        $rulelist = base64_decode(file_get_contents("https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt"));
-        $gfwlist = explode("\n", $rulelist);
-        $gfwlist[] = ".google.com";
-
-
-        if(!empty($gfwlist)){
-            foreach ($gfwlist as &$item) {
-                if (self::startWith($item,'||')) {
-
-                    str_replace('||','',$item);
-                }elseif (self::startWith($item,''));
+    public function getDetectFromGfwlist($request, $response, $args){
+        $path=__DIR__.'/../../';
+        $regexs=file_get_contents($path.'/gfw.url_regex.lst');
+        $md5=md5($regexs);
+        $reqMd5=$request->getQueryParams()['gfwlistmd5'];
+        var_dump($md5);
+        if (empty($reqMd5) || $reqMd5 != $md5) {
+            $regexs = explode("\n", $regexs);
+            $index=20000;
+            $rules=array();
+            foreach ($regexs as $regex) {
+                $rule=new DetectRule();
+                $rule->id=$index;
+                $index++;
+                $rule->regex=$regex;
+                $rules[]=$rule;
             }
-            unset($item);
+            return $rules;
+        }else{
+            return null;
         }
-
     }
 
     /** 判断字符串是否以给定字符串开头
