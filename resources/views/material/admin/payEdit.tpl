@@ -11,10 +11,14 @@
         <div class="col-lg-12 col-md-12">
             <section class="content-inner margin-top-no">
 
-
                 <div class="card">
                     <div class="card-main">
                         <div class="card-inner">
+
+                            <div class="form-group form-group-label">
+                                <a href="https://github.com/q398044828/ss-panel-v3-mod_Uim-alipay-wxpay/wiki/免签支付宝-微信cookie获取教程备份">点我查看获取cookie教程</a>
+                            </div>
+
                             <div class="form-group form-group-label">
                                 <div class="checkbox switch">
                                     <label for="AliPay_Status">

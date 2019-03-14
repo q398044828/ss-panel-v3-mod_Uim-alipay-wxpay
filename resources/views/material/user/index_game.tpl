@@ -47,24 +47,44 @@
                         <div class="card-main">
                             <div class="card-inner margin-bottom-no">
                                 <p class="card-heading"><i class="icon icon-md">phonelink</i> 使用说明</p>
-                                <nav class="tab-nav margin-top-no">
-                                    <p> <h3>  <span style="color: red">重要说明：</span> 本加速会禁止翻墙，你要翻墙也翻不了的！！！！！！ 本工具紧紧做为游戏加速使用，请勿使用ss/ssr等工具当作翻墙工具，</h3></p>
-                                </nav>
-                                <div class="card-inner">
-                                    <div class="tab-content">
-                                        <a href="/sstap.exe">点我下载网游加速客户端</a>
 
-                                        </br>
 
-                                        <img src="/images/game_tip.png" alt="">
+                                <dl class="dl-horizontal">
+                                    <p>
+                                        <dt style="color: red">重要说明</dt>
+                                        <dd>本服务封禁了非法网络的访问，请勿使用ssr工具进行当地法律不允许的行为</dd>
+                                    </p>
+                                    <p>
+                                        <dt>1. 下载客户端</dt>
+                                        <dd>
+                                            <a href="/downloads/SSTap-beta.zip" style="color: red">点我下载网游加速客户端</a>
+                                        </dd>
+                                    </p>
+                                    <p>
+                                        <dt>2. 将压缩包解压到你想要的目录</dt>
+                                        <dd></dd>
+                                    </p>
+                                    <p>
+                                        <dt>3. 启动客户端</dt>
+                                        <dd>
+                                            <img src="/images/start_client.png" alt="">
+                                        </dd>
+                                    </p>
+                                    <p>
 
-                                        </br>
-                                        </br>
-                                        可自行编辑代理游戏规则，也可选择已有规则，当你觉得加速无效的时候，请直接选择不代理中国ip
-
-                                    </div>
-                                </div>
+                                        <dt>4. 将节点配置信息添加到客户端</dt>
+                                        <dd>
+                                        </dd>
+                                    </p>
+                                    <p>
+                                        <dt>5. 选择你要玩儿的游戏</dt>
+                                        <dd>
+                                            <img src="/images/game_tip.png" alt="">
+                                        </dd>
+                                    </p>
+                                </dl>
                             </div>
+
 
                         </div>
                     </div>

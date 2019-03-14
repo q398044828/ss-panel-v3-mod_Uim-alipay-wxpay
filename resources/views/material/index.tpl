@@ -51,7 +51,7 @@
                                 <li><a href="#1">简介</a></li>
 					            <li><a href="/user">用户中心</a></li>
 								<li><a href="/user/logout">退出登录</a></li>
-								<li><a href="#5">下载</a></li>
+								{*<li><a href="#5">下载</a></li>*}
                         </ul>
 						</nav>
                               {else}
@@ -82,7 +82,7 @@
                       <!--标签1开始-->
                       <article id="1">
                       <h2 class="major">简介</h2>
-                      <p>「ホワイトアルバムの季節」が、また、やってきた。</p></article>
+                      <p>巴游网游加速器，啥游戏都支持</p></article>
 					  <!--
 					  简介修改示例: 
 					  <p> 123</p>

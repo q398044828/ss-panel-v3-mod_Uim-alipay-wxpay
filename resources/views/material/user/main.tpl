@@ -411,9 +411,9 @@
 								<a href="/user/lookingglass">
 									<i class="icon icon-lg">visibility</i>&nbsp;延迟检测
 								</a>
-								<a href="/user/announcement">
+								{*<a href="/user/announcement">
 									<i class="icon icon-lg">start</i>&nbsp;使用教程
-								</a>
+								</a>*}
 							</li>
 						</ul>
 
