@@ -24,6 +24,8 @@ class FuncController extends BaseController
         return $this->echoJson($response, $res);
     }
 
+
+
     /**
      *  根据gfwlist生成用户禁止访问规则，防止用户访问中国禁止访问的地址
      * @param $request
@@ -33,18 +35,134 @@ class FuncController extends BaseController
      */
     public function getDetectFromGfwlist($reqMd5,&$outMd5){
         $path=__DIR__.'/../../../';
+        $rulelist=file_get_contents($path.'/decode.txt');
+        $gfwlist = explode("\n", $rulelist);
+        $md5=md5($rulelist);
+        $rules=array();
+        $tempRule=[];
+        if (empty($reqMd5) || $reqMd5 != $md5) {
+            $index=20000;
+            foreach ($gfwlist as $item){
+                if (!empty($regex=trim($item))) {
+                    $isDetect=false;
+                    $op=false;
+                    if (Tools::startWith($item,'||')) {
+                        //|| 标记，如 ||example.com 则 http://example.com 、https://example.com 、 ftp://example.com 等地址均满足条件
+                        $isDetect=true;
+                        $item=str_replace('||','match_',$item);
+                        $op=true;
+                    }else if (Tools::startWith($item,'@@')){
+                        //例外
+
+                    }else if (Tools::startWith($item,'|')){
+                        //匹配开始
+                        $isDetect=true;
+                        $item=str_replace('|','match_',$item);
+                        $op=true;
+                    }else if (Tools::endWith($item,'|')){
+                        //匹配结束
+                        $isDetect=true;
+                        $item=str_replace('|','',$item);
+                        $item='match_'.$item;
+                        $op=true;
+                    }else if (Tools::startWith($item,'/^')){
+                        //正则
+                        $isDetect=true;
+                    }else if(Tools::startWith($item,'!')){
+                        //注释
+                    }else{
+                        $op=true;
+                        $isDetect=true;
+                        $item='match_'.$item;
+                    }
+
+                    if ($isDetect && $op) {
+                        // 去除uri,只要域名
+                        $i=strripos($item,'.');
+                        if ($i>0) {
+                            $lastStr=substr($item,$i,strlen($item));//eg:   .com\/abc\/def
+                            $startStr=substr($item,0,$i);//eg: a.b.c
+                            $b=strpos($lastStr,'/');
+                            if ($b>0) {
+                                $middleStr=substr($lastStr,0,strpos($lastStr,'/'));//eg: .com
+                                $item=$startStr.$middleStr;
+                            }
+                        }
+
+                    }
+
+                    if ($isDetect) {
+                        $tempRule[]=$item;
+                    }
+
+                }
+            }
+
+            $tempRule=array_unique($tempRule);
+            foreach ($tempRule as $item) {
+                $rule=new DetectRule();
+                $rule->id=$index;
+                $index++;
+                $rule->regex=$item;
+                $rule->type=1;
+                $rules[]=$rule;
+            }
+            $outMd5=$md5;
+        }
+        return $rules;
+
+    }
+    /**
+     *  根据gfwlist生成用户禁止访问规则，防止用户访问中国禁止访问的地址
+     * @param $request
+     * @param $response
+     * @param $args
+     * @return string
+     */
+    public function getDetectFromGfwlist2($reqMd5,&$outMd5){
+        $path=__DIR__.'/../../../';
         $regexs=file_get_contents($path.'/gfw.url_regex.lst');
         $md5=md5($regexs);
         if (empty($reqMd5) || $reqMd5 != $md5) {
             $regexs = explode("\n", $regexs);
             $index=20000;
+            $a=0;
             $rules=array();
+            //删除uri,去除重复正则，精简列表
+            foreach ($regexs as &$regex) {
+                //eg :    a.b.c.com\/abc\/def
+                $i=strripos($regex,'.');
+                if ($i>0) {
+                    $lastStr=substr($regex,$i,strlen($regex));//eg:   .com\/abc\/def
+                    $startStr=substr($regex,0,$i);//eg: a.b.c
+                    $b=strpos($lastStr,'\/');
+                    if ($b>0) {
+                        $middleStr=substr($lastStr,0,strpos($lastStr,'\/'));//eg: .com
+                        $regex=$startStr.$middleStr;
+//                        var_dump([$startStr,$middleStr,$lastStr]);
+                    }
+                }
+                /*$a++;
+                if ($a>100) {
+                    break;
+                }*/
+            }
+            unset($regex);
+//            return [];
+            //去重
+            $regexs=array_unique($regexs);
+
+
+            //转审计规则
             foreach ($regexs as $regex) {
-                $rule=new DetectRule();
-                $rule->id=$index;
-                $index++;
-                $rule->regex=$regex;
-                $rules[]=$rule;
+                if (!empty($regex=trim($regex))) {
+                    $rule=new DetectRule();
+                    $rule->id=$index;
+                    $index++;
+                    $rule->regex=$regex;
+                    $rule->type=1;
+                    $rules[]=$rule;
+                }
             }
             $outMd5=$md5;
             return $rules;

@@ -11,6 +11,22 @@ use DateTime;
 class Tools
 {
 
+    /** 判断字符串是否以给定字符串开头
+     * @param $str
+     * @param $needle
+     * @return bool
+     */
+    public static function startWith($str, $needle) {
+        return strpos($str, $needle) === 0;
+    }
+    public static function endWith($str,$needle){
+        $length = strlen($needle);
+        if($length == 0){
+            return true;
+        }
+        return (substr($str, -$length) === $needle);
+    }
+
     /**
      * 根据流量值自动转换单位输出
      */
