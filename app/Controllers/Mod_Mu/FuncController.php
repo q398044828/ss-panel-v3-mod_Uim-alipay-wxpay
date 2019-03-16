@@ -49,7 +49,11 @@ class FuncController extends BaseController
                     if (Tools::startWith($item,'||')) {
                         //|| 标记，如 ||example.com 则 http://example.com 、https://example.com 、 ftp://example.com 等地址均满足条件
                         $isDetect=true;
-                        $item=str_replace('||','match_',$item);
+                        $item=str_replace('||','',$item);
+                        if (Tools::startWith($item,'.')) {
+                            $item=substr($item,1,strlen($item));
+                        }
+                        $item='gfwmatch_'.$item;
                         $op=true;
                     }else if (Tools::startWith($item,'@@')){
                         //例外
@@ -57,13 +61,22 @@ class FuncController extends BaseController
                     }else if (Tools::startWith($item,'|')){
                         //匹配开始
                         $isDetect=true;
-                        $item=str_replace('|','match_',$item);
+                        $item=str_replace('|','',$item);
+                        if (Tools::startWith($item,'.')) {
+                            $item=substr($item,1,strlen($item));
+                        }
+                        $item='gfwmatch_'.$item;
                         $op=true;
+
                     }else if (Tools::endWith($item,'|')){
                         //匹配结束
                         $isDetect=true;
                         $item=str_replace('|','',$item);
-                        $item='match_'.$item;
+                        if (Tools::startWith($item,'.')) {
+                            $item=substr($item,1,strlen($item));
+                        }
+                        $item='gfwmatch_'.$item;
+
                         $op=true;
                     }else if (Tools::startWith($item,'/^')){
                         //正则
@@ -73,7 +86,10 @@ class FuncController extends BaseController
                     }else{
                         $op=true;
                         $isDetect=true;
-                        $item='match_'.$item;
+                        if (Tools::startWith($item,'.')) {
+                            $item=substr($item,1,strlen($item));
+                        }
+                        $item='gfwmatch_'.$item;
                     }
 
                     if ($isDetect && $op) {
