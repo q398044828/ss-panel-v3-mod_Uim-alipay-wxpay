@@ -52,12 +52,16 @@
                                 <dl class="dl-horizontal">
                                     <p>
                                         <dt style="color: red">重要说明</dt>
-                                        <dd>本服务封禁了非法网络的访问，请勿使用ssr工具进行当地法律不允许的行为</dd>
+                                        <dd> 本服务封禁了非法网络的访问，当您非法使用ss/ssr工具时，您的连接将会被中断</dd>
                                     </p>
                                     <p>
                                         <dt>1. 下载客户端</dt>
                                         <dd>
-                                            <a href="/downloads/SSTap-beta.zip" style="color: red">点我下载网游加速客户端</a>
+                                            <a href="/downloads/SSTap-beta.zip" style="color: red">解压即用客户端</a>
+                                            <br/>
+                                            <br/>
+                                            当解压版无法正常使用时，请下载安装版,并下载游戏规则解压到安装目录的rule目录下 <br>
+                                            <a href="/downloads/SSTap-beta-1.0.9.7.exe" style="color: red">安装版</a>
                                         </dd>
                                     </p>
                                     <p>
