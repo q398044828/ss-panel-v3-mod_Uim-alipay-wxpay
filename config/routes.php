@@ -86,6 +86,10 @@ $app->post('/codepay_callback', 'App\Services\Payment:notify');
 
 $app->get('/test', 'App\Controllers\LinkController:getDetectFromGfwlist');
 
+// 游戏加速器win客户端
+$app->group('/game-client',function (){
+   $this->post('/login','App\Controllers\GameOptClientController:login');
+});
 
 // User Center
 $app->group('/user', function () {

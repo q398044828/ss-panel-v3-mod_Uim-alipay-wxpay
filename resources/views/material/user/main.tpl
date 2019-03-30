@@ -395,11 +395,11 @@
 								</a>
 							</li>
 
-							<li>
+							{*<li>
 								<a href="/user/relay">
 									<i class="icon icon-lg">compare_arrows</i>&nbsp;中转规则
 								</a>
-							</li>
+							</li>*}
 
 							<li>
 								<a href="/user/trafficlog">
